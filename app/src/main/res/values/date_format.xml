@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="date_format__now">Just now</string>
+    <string name="date_format__today">Today</string>
+    <string name="date_format__yesterday">Yesterday</string>
+    <string name="date_format__tomorrow">Tomorrow</string>
+
+    <string name="date_format__one_minute">1 minute ago</string>
+    <string name="date_format__minute">%1d minutes ago</string>
+
+    <string name="date_format__one_hour">1 hour ago</string>
+    <string name="date_format__hour">%1d hours ago</string>
+
+    <string name="date_format__today_with_time">Today at %1s</string>
+    <string name="date_format__yesterday_with_time">Yesterday at %1s</string>
+    <string name="date_format__tomorrow_with_time">Tomorrow at %1s</string>
+    <string name="date_format__past">%1$s at %2$s</string>
+    <string name="date_format__past_with_hyphen">%1$s - %2$s</string>
+
+</resources>

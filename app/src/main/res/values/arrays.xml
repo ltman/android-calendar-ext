@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="months_short_array">
+        <item>@string/months__short_january</item>
+        <item>@string/months__short_february</item>
+        <item>@string/months__short_march</item>
+
+        <item>@string/months__short_april</item>
+        <item>@string/months__short_may</item>
+        <item>@string/months__short_june</item>
+
+        <item>@string/months__short_july</item>
+        <item>@string/months__short_august</item>
+        <item>@string/months__short_september</item>
+
+        <item>@string/months__short_october</item>
+        <item>@string/months__short_november</item>
+        <item>@string/months__short_december</item>
+    </string-array>
+
+</resources>

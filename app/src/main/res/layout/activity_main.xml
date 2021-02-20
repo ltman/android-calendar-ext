@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="viewData"
+            type="com.ltman.calendarextapp.MainActivity.ViewData" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
+
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:stretchColumns="*"
+            tools:layout_editor_absoluteX="14dp"
+            tools:layout_editor_absoluteY="29dp">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:text="Time"
+                    />
+                <TextView
+                    android:text="todayString()"/>
+                <TextView
+                    android:text="todayWithTimeString()"/>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:text="Now"
+                    />
+                <TextView
+                    android:text="@{viewData.today}"/>
+                <TextView
+                    android:text="@{viewData.todayWithTime}"/>
+            </TableRow>
+
+
+
+        </TableLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

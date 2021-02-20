@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="months__short_january">Jan</string>
+    <string name="months__short_february">Feb</string>
+    <string name="months__short_march">Mar</string>
+    <string name="months__short_april">Apr</string>
+    <string name="months__short_may">May</string>
+    <string name="months__short_june">Jun</string>
+    <string name="months__short_july">Jul</string>
+    <string name="months__short_august">Aug</string>
+    <string name="months__short_september">Sep</string>
+    <string name="months__short_october">Oct</string>
+    <string name="months__short_november">Nov</string>
+    <string name="months__short_december">Dec</string>
+
+</resources>

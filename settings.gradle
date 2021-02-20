@@ -1,0 +1,3 @@
+include ':calendarext'
+include ':app'
+rootProject.name = "CalendarExt"
