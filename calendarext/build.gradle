@@ -81,7 +81,7 @@ publishing {
         }
     }
 }
-//assemble.finalizedBy(artifactoryPublish)
+artifactoryPublish.dependsOn(assemble)
 artifactory {
     contextUrl = "${artifactory_context_url}"
     publish {
