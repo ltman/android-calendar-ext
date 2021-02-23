@@ -10,8 +10,8 @@ android {
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 29
-        versionCode 5
-        versionName "1.0.1"
+        versionCode 6
+        versionName "1.0.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -48,7 +48,7 @@ publishing {
         android.libraryVariants.all { variant ->
             ////def filename = "${archivesBaseName}-${variant.baseName}-${android.defaultConfig.versionName}"
             def filename = "${archivesBaseName}-${variant.baseName}"
-            //println(filename)
+            println(filename)
             "${variant.name}"(MavenPublication) {
                 //println(variant.name)
                 groupId 'com.ltman'
