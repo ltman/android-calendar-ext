@@ -36,36 +36,6 @@ Set version name
 fastlane android get_version
 ```
 Print current app version
-### android staging
-```
-fastlane android staging
-```
-Deploy a new version of staging to the Google Play
-### android production
-```
-fastlane android production
-```
-Deploy a new version of production to the Google Play
-### android appDistribute_all
-```
-fastlane android appDistribute_all
-```
-Deploy a new version to Firebase App Distribution Staging/Production
-### android appDistribute_staging
-```
-fastlane android appDistribute_staging
-```
-Deploy a new Staging version to Firebase App Distribution
-### android appDistribute_production
-```
-fastlane android appDistribute_production
-```
-Deploy a new Production version to Firebase App Distribution
-### android all
-```
-fastlane android all
-```
-Deploy a new version of staging&production to the Google Play
 
 ----
 

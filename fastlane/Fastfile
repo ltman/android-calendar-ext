@@ -10,8 +10,6 @@ end
 
 platform :android do
 
-
-
     desc "Runs all the tests"
     private_lane :test do
         puts "Start running all tests .."
@@ -30,22 +28,26 @@ platform :android do
     end
 
     desc "Bump build number and commit"
-    lane :bump_version do
-        android_set_version_code(gradle_file: libModuleGradleFile)
-        commitBumpVersion()
+    lane :bump_version do |options|
+        gradleFile = options["libModuleGradleFile"]
+        moduleName = options["libModule"]
+        android_set_version_code(gradle_file: options["libModuleGradleFile"])
+        commitBumpVersion(gradleFile, moduleName)
     end
 
     desc "Commit bump build number"
-    lane :commit_bump_version do
-        commitBumpVersion()
+    lane :commit_bump_version do |options|
+        gradleFile = options["libModuleGradleFile"]
+        moduleName = options["libModule"]
+        commitBumpVersion(gradleFile, moduleName)
     end
 
-    def commitBumpVersion()
-        version = getVersionName()
-        build = getVersionCode()
+    def commitBumpVersion(gradleFile, moduleName)
+        version = getVersionName(gradleFile)
+        build = getVersionCode(gradleFile)
         commit_message = "Version bumped by fastlane v%s (%s)" % [version, build]
         commit_android_version_bump(
-            gradle_file_folder: libModule,
+            gradle_file_folder: moduleName,
             message: commit_message
         )
     end
@@ -64,9 +66,10 @@ platform :android do
     end
 
     desc "Print current app version"
-    lane :get_version do
-        build = getVersionCode()
-        version = getVersionName()
+    lane :get_version do |options|
+        gradleFile = options["libModuleGradleFile"]
+        build = getVersionCode(gradleFile)
+        version = getVersionName(gradleFile)
         puts "version: %s build %s" % [version, build]
     end
 
@@ -81,113 +84,4 @@ platform :android do
         )
     end
 
-    desc "Deploy a new version of staging to the Google Play"
-    lane :staging do
-        #build
-        puts "Start building bundle releaseStaging .."
-        gradle(
-            task: "clean"
-        )
-        gradle(
-                task: 'bundle',
-                build_type: 'blockditStagingGmsRelease'
-        )
-
-        #test()
-        deploy(package_name: "com.siamsquared.longtunman.staging")
-    end
-
-    desc "Deploy a new version of production to the Google Play"
-    lane :production do
-        #build
-        puts "Start building bundle release .."
-        gradle(
-            task: "clean"
-        )
-        gradle(
-                task: 'bundle',
-                build_type: 'blockditProductionGmsRelease'
-        )
-
-        #test()
-        deploy(package_name: "com.siamsquared.longtunman")
-    end
-
-    desc "Deploy a new version to Firebase App Distribution Staging/Production"
-    lane :appDistribute_all do
-        puts "Start building staging"
-        gradle(
-            task: "clean"
-        )
-        gradle(
-                task: 'assemble',
-                build_type: 'blockditStagingGmsRelease'
-        )
-
-        firebase_app_distribution(
-            app: "1:1066374960120:android:82708a7348db5029",
-            groups: "ltman-tech-team",
-            release_notes: "Test from fastlane",
-            firebase_cli_token: ENV["FIREBASE_TOKEN"],
-            firebase_cli_path: "/usr/local/bin/firebase"
-        )
-        puts "Start building production"
-        gradle(
-            task: 'assemble',
-            build_type: 'blockditProductionGmsRelease'
-        )
-        firebase_app_distribution(
-            app: "1:904336154054:android:ec70dd046f12a5b5",
-            groups: "ltman-tech-team",
-            release_notes: "Test from fastlane",
-            firebase_cli_token: ENV["FIREBASE_TOKEN"],
-            firebase_cli_path: "/usr/local/bin/firebase"
-        )
-    end
-
-    desc "Deploy a new Staging version to Firebase App Distribution"
-    lane :appDistribute_staging do
-        puts "Start building staging"
-        gradle(
-            task: "clean"
-        )
-        gradle(
-                task: 'assemble',
-                build_type: 'blockditStagingGmsRelease'
-        )
-
-        firebase_app_distribution(
-            app: "1:1066374960120:android:82708a7348db5029",
-            groups: "ltman-tech-team",
-            release_notes: "Test from fastlane",
-            firebase_cli_token: ENV["FIREBASE_TOKEN"],
-            firebase_cli_path: "/usr/local/bin/firebase"
-        )
-    end
-
-    desc "Deploy a new Production version to Firebase App Distribution"
-    lane :appDistribute_production do
-
-        puts "Start building release"
-        gradle(
-            task: "clean"
-        )
-        gradle(
-                task: 'assemble',
-                build_type: 'blockditProductionGmsRelease'
-        )
-        firebase_app_distribution(
-            app: "1:904336154054:android:ec70dd046f12a5b5",
-            groups: "ltman-tech-team",
-            release_notes: "Test from fastlane",
-            firebase_cli_token: ENV["FIREBASE_TOKEN"],
-            firebase_cli_path: "/usr/local/bin/firebase"
-        )
-    end
-
-    desc "Deploy a new version of staging&production to the Google Play"
-    lane :all do
-        staging()
-        production()
-    end
 end
