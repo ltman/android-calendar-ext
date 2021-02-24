@@ -41,7 +41,12 @@ dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.3.2'
-    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    // TODO: Do not update appcompat to version 1.2.0 because the bug below
+    // https://issuetracker.google.com/issues/140602653
+    // The work around solution exists here https://stackoverflow.com/a/57900842 but we decided to keep
+    // using non-bug version (1.0.2) until the bug is fixed
+
     implementation 'com.google.android.material:material:1.3.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     testImplementation 'junit:junit:4.13.2'
