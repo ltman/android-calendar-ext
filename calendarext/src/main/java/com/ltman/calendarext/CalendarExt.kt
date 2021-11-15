@@ -39,6 +39,7 @@ data class CalendarExtConfig(
 
 object CalendarExt {
 
+    var currentTime: () -> Calendar = Calendar::getInstance
     internal lateinit var config: CalendarExtConfig
 
     fun configure(config: CalendarExtConfig) {
@@ -91,7 +92,7 @@ internal fun Calendar.todayWithTimeString(context: Context, currentTime: Calenda
 }
 
 fun Calendar.timeAgoWithTimeString(context: Context): String {
-    return this.timeAgoWithTimeString(context, Calendar.getInstance())
+    return this.timeAgoWithTimeString(context, CalendarExt.currentTime())
 }
 
 internal fun Calendar.timeAgoWithTimeString(context: Context, currentTime: Calendar): String {
@@ -150,7 +151,7 @@ internal fun Calendar.timeAgoShortString(context: Context, currentTime: Calendar
         else -> {
             val year = currentTime.get(Calendar.YEAR) - get(Calendar.YEAR)
 
-            val postDateThisYear = Calendar.getInstance().apply {
+            val postDateThisYear = CalendarExt.currentTime().apply {
                 time = currentTime.time
             }
             postDateThisYear.timeInMillis = timeInMillis
@@ -204,14 +205,14 @@ fun Calendar.dayAgo(): Int {
 }
 
 internal fun Calendar.dayAgo(currentTime: Calendar): Int {
-    val date1 = Calendar.getInstance()
+    val date1 = CalendarExt.currentTime()
     date1.time = this.time
     date1.set(Calendar.HOUR_OF_DAY, 0)
     date1.set(Calendar.MINUTE, 0)
     date1.set(Calendar.SECOND, 0)
     date1.set(Calendar.MILLISECOND, 0)
 
-    val date2 = Calendar.getInstance()
+    val date2 = CalendarExt.currentTime()
     date2.time = currentTime.time
     date2.set(Calendar.HOUR_OF_DAY, 0)
     date2.set(Calendar.MINUTE, 0)
