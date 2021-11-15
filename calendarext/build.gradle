@@ -10,8 +10,6 @@ android {
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 29
-        versionCode 12
-        versionName "2.0.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -77,12 +75,8 @@ publishing {
                     groupId 'com.ltman'
                     artifactId = "calendar-ext"
                     version = "${android.defaultConfig.versionName}"
-                    println("user = ${artifactory_user}")
-
-                    //artifact(sourcesJar)
 
                     artifact file("$buildDir/outputs/aar/${filename}.aar")
-
 
                     pom.withXml {
                         // for dependencies and exclusions
