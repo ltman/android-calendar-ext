@@ -18,3 +18,6 @@ jobs:
           java-version: '11'
       - name: Publish
         run: bash ./gradlew :calendarext:publish
+        env:
+          GPR_USER: ${{ secrets.GPR_USR }}
+          GPR_API_KEY: ${{ secrets.GPR_KEY }}
