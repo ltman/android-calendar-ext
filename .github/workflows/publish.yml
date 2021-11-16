@@ -1,0 +1,20 @@
+name: publish
+
+on:
+  push:
+    branches: [ production ]
+
+jobs:
+  build:
+    name: Publish
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup JDK
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'zulu'
+          java-version: '11'
+      - name: Publish
+        run: bash ./gradlew :calendarext:publish
