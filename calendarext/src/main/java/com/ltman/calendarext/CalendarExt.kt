@@ -48,7 +48,7 @@ object CalendarExt {
 }
 
 fun Calendar.todayString(context: Context): String {
-    return this.todayString(context, Calendar.getInstance())
+    return this.todayString(context, CalendarExt.currentTime())
 }
 
 internal fun Calendar.todayString(context: Context, currentTime: Calendar): String {
@@ -69,7 +69,7 @@ internal fun Calendar.todayString(context: Context, currentTime: Calendar): Stri
 }
 
 fun Calendar.todayWithTimeString(context: Context): String {
-    return this.todayWithTimeString(context, Calendar.getInstance())
+    return this.todayWithTimeString(context, CalendarExt.currentTime())
 }
 
 internal fun Calendar.todayWithTimeString(context: Context, currentTime: Calendar): String {
@@ -125,7 +125,7 @@ internal fun Calendar.timeAgoWithTimeString(context: Context, currentTime: Calen
 
 
 fun Calendar.timeAgoShortString(context: Context): String {
-    return this.timeAgoShortString(context, Calendar.getInstance())
+    return this.timeAgoShortString(context, CalendarExt.currentTime())
 }
 
 internal fun Calendar.timeAgoShortString(context: Context, currentTime: Calendar): String {
@@ -184,7 +184,7 @@ fun Calendar.dateString(context: Context): String {
 }
 
 fun Calendar.dateWithTimeString(context: Context): String {
-    return this.dateWithTimeString(context, Calendar.getInstance())
+    return this.dateWithTimeString(context, CalendarExt.currentTime())
 }
 
 internal fun Calendar.dateWithTimeString(context: Context, currentTime: Calendar): String {
@@ -201,7 +201,7 @@ internal fun Calendar.dateWithTimeString(context: Context, currentTime: Calendar
 }
 
 fun Calendar.dayAgo(): Int {
-    return this.dayAgo(Calendar.getInstance())
+    return this.dayAgo(CalendarExt.currentTime())
 }
 
 internal fun Calendar.dayAgo(currentTime: Calendar): Int {
