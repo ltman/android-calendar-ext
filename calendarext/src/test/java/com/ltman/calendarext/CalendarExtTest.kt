@@ -16,6 +16,16 @@ class CalendarExtTest {
     private val resources = mock(Resources::class.java)
 
     companion object {
+        private val date_2017_12_02_23H_59M_59S = Calendar.getInstance().apply {
+            this.set(Calendar.YEAR, 2017)
+            this.set(Calendar.DAY_OF_MONTH, 2)
+            this.set(Calendar.MONTH, 11)
+            this.set(Calendar.HOUR_OF_DAY, 23)
+            this.set(Calendar.MINUTE, 59)
+            this.set(Calendar.SECOND, 59)
+            this.set(Calendar.MILLISECOND, 0)
+        }
+
         private val date_2017_12_01_23H_59M_59S = Calendar.getInstance().apply {
             this.set(Calendar.YEAR, 2017)
             this.set(Calendar.DAY_OF_MONTH, 1)
@@ -253,7 +263,6 @@ class CalendarExtTest {
             val date_format__minute = 10
             val date_format__one_hour = 11
             val date_format__hour = 12
-            val date_format__past_with_hyphen = 13
         }
         object array {
             val months_short_array = 0
@@ -273,7 +282,6 @@ class CalendarExtTest {
             date_format__one_hour = R.string.date_format__one_hour,
             date_format__one_minute = R.string.date_format__one_minute,
             date_format__past = R.string.date_format__past,
-            date_format__past_with_hyphen = R.string.date_format__past_with_hyphen,
             date_format__today_with_time = R.string.date_format__today_with_time,
             date_format__tomorrow_with_time = R.string.date_format__tomorrow_with_time,
             date_format__yesterday_with_time = R.string.date_format__yesterday_with_time
@@ -300,7 +308,6 @@ class CalendarExtTest {
         `when`(context.getString(R.string.date_format__one_hour)).thenReturn("1 hour ago")
         `when`(context.getString(R.string.date_format__hour, 10L)).thenReturn("10 hours ago")
 
-        `when`(context.getString(R.string.date_format__past_with_hyphen, "31 Dec 2100", "8:50")).thenReturn("31 Dec 2100 - 8:50")
         `when`(context.getString(R.string.date_format__past, "31 Dec 2100", "8:50")).thenReturn("31 Dec 2100 at 8:50")
 
         `when`(context.resources).thenReturn(resources)
@@ -576,19 +583,6 @@ class CalendarExtTest {
             "Just now",
             date_2020_01_02_00H_00M_00S.timeAgoShortString(context, date_2019_12_31_23H_59M_59S)
         )
-    }
-
-    @Test
-    fun dateWithHyphenString() {
-        val notThisYearDate = Calendar.getInstance().apply {
-            this.set(Calendar.DAY_OF_MONTH, 31)
-            this.set(Calendar.MONTH, 11)
-            this.set(Calendar.YEAR, 2100)
-            this.set(Calendar.HOUR_OF_DAY, 8)
-            this.set(Calendar.MINUTE, 50)
-        }
-
-        Assert.assertEquals("31 Dec 2100 - 8:50", notThisYearDate.dateWithHyphenString(context))
     }
 
     @Test
