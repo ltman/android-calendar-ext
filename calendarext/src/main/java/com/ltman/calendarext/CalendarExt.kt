@@ -155,7 +155,7 @@ internal fun Calendar.timeAgoShortString(context: Context, currentTime: Calendar
                 time = currentTime.time
             }
             postDateThisYear.timeInMillis = timeInMillis
-            postDateThisYear.set(currentTime.get(Calendar.YEAR), get(Calendar.MONTH), currentTime.get(Calendar.DATE))
+            postDateThisYear.set(currentTime.get(Calendar.YEAR), get(Calendar.MONTH), get(Calendar.DATE))
 
             return if (currentTime >= postDateThisYear)
                 "${year}y"

@@ -495,6 +495,10 @@ class CalendarExtTest {
     fun `internal timeAgoShortString`() {
         Assert.assertEquals(
             "1y",
+            date_2017_12_02_23H_59M_59S.timeAgoShortString(context, date_2019_12_01_23H_59M_59S)
+        )
+        Assert.assertEquals(
+            "1y",
             date_2017_12_01_23H_59M_59S.timeAgoShortString(context, date_2019_01_01_23H_59M_59S)
         )
         Assert.assertEquals(
