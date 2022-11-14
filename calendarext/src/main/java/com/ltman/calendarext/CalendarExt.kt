@@ -46,16 +46,15 @@ object CalendarExt {
 }
 
 /**
- * Convert Calendar to today or yesterday or tomorrow or d ___ yyyy Pattern
+ * use TodayPattern as date time pattern for convert date to string
  *
- * @param context
- * @return
- */
-fun Calendar.todayString(context: Context): String {
-    return this.todayString(context, CalendarExt.currentTime())
+ * @return date string
+*/
+fun Calendar.toTodayString(context: Context): String {
+    return this.toTodayString(context, CalendarExt.currentTime())
 }
 
-internal fun Calendar.todayString(context: Context, currentTime: Calendar): String {
+internal fun Calendar.toTodayString(context: Context, currentTime: Calendar): String {
     val monthsShort = context.resources.getStringArray(CalendarExt.config.months_short_array)
     return when (this.dayAgo(currentTime)) {
         0 -> context.getString(CalendarExt.config.date_format__today)
@@ -73,16 +72,15 @@ internal fun Calendar.todayString(context: Context, currentTime: Calendar): Stri
 }
 
 /**
- * Today with time string
+ * use TodayWithTimePattern as date time pattern for convert date to string
  *
- * @param context
- * @return
+ * @return date string
  */
-fun Calendar.todayWithTimeString(context: Context): String {
-    return this.todayWithTimeString(context, CalendarExt.currentTime())
+fun Calendar.toTodayWithTimeString(context: Context): String {
+    return this.toTodayWithTimeString(context, CalendarExt.currentTime())
 }
 
-internal fun Calendar.todayWithTimeString(context: Context, currentTime: Calendar): String {
+internal fun Calendar.toTodayWithTimeString(context: Context, currentTime: Calendar): String {
     val monthsShort = context.resources.getStringArray(CalendarExt.config.months_short_array)
     val timeStr = SimpleDateFormat("H:mm", Locale.getDefault()).format(time)
     return when (this.dayAgo(currentTime)) {
@@ -102,15 +100,15 @@ internal fun Calendar.todayWithTimeString(context: Context, currentTime: Calenda
 }
 
 /**
- * Convert to
+ * use TimeAgoPattern as date time pattern for convert date to string
  *
- * @return
+ * @return date string
  */
-fun Calendar.timeAgoWithTimeString(context: Context): String {
-    return this.timeAgoWithTimeString(context, CalendarExt.currentTime())
+fun Calendar.toTimeAgoString(context: Context): String {
+    return this.toTimeAgoString(context, CalendarExt.currentTime())
 }
 
-internal fun Calendar.timeAgoWithTimeString(context: Context, currentTime: Calendar): String {
+internal fun Calendar.toTimeAgoString(context: Context, currentTime: Calendar): String {
     val interval = (currentTime.timeInMillis - this.timeInMillis) / 1000
 
     val minute = 60
@@ -143,22 +141,22 @@ internal fun Calendar.timeAgoWithTimeString(context: Context, currentTime: Calen
         }
 
         else -> {
-            this.todayWithTimeString(context, currentTime)
+            this.toTodayWithTimeString(context, currentTime)
         }
     }
 }
 
 
 /**
- * Convert to range between source calendar with today
+ * use TimeAgoShortPattern as date time pattern for convert date to string
  *
- * @return count of range in biggest pronoun with abbreviation pronoun
+ * @return date string
  */
-fun Calendar.timeAgoShortString(context: Context): String {
-    return this.timeAgoShortString(context, CalendarExt.currentTime())
+fun Calendar.toTimeAgoShortString(context: Context): String {
+    return this.toTimeAgoShortString(context, CalendarExt.currentTime())
 }
 
-internal fun Calendar.timeAgoShortString(context: Context, currentTime: Calendar): String {
+internal fun Calendar.toTimeAgoShortString(context: Context, currentTime: Calendar): String {
     val interval = (currentTime.timeInMillis - this.timeInMillis) / 1000
 
     val secondPerMinute = 60
@@ -196,11 +194,11 @@ internal fun Calendar.timeAgoShortString(context: Context, currentTime: Calendar
 }
 
 /**
- * Convert to <code>d MMM yyyy</code> Pattern
+ * use DatePattern as date time pattern for convert date to string
  *
  * @return date string
  */
-fun Calendar.dateString(context: Context): String {
+fun Calendar.toDateString(context: Context): String {
     val monthsShort = context.resources.getStringArray(CalendarExt.config.months_short_array)
     val pattern = "d ___ yyyy"
 
@@ -209,16 +207,16 @@ fun Calendar.dateString(context: Context): String {
 }
 
 /**
- * Convert to <code>d MMM yyyy at H:mm</code> Pattern(year will be hide if calendar year same as calendar year)
+ * use DateWithTimePattern as date time pattern for convert date to string
  *
- * @param isForceShowYear to force show year in date time pattern
+ * @param alwaysDisplayYear to force show year in date time pattern
  * @return date and time string
  */
-fun Calendar.dateWithTimeString(context: Context, isForceShowYear: Boolean = false): String {
-    return this.dateWithTimeString(context, isForceShowYear, CalendarExt.currentTime())
+fun Calendar.toDateWithTimeString(context: Context, alwaysDisplayYear: Boolean = false): String {
+    return this.toDateWithTimeString(context, alwaysDisplayYear, CalendarExt.currentTime())
 }
 
-internal fun Calendar.dateWithTimeString(context: Context, isForceShowYear: Boolean, currentTime: Calendar): String {
+internal fun Calendar.toDateWithTimeString(context: Context, isForceShowYear: Boolean, currentTime: Calendar): String {
     val monthsShort = context.resources.getStringArray(CalendarExt.config.months_short_array)
     val timeStr = SimpleDateFormat("H:mm", Locale.getDefault()).format(time)
     val pattern = if (currentTime.get(Calendar.YEAR) == this.get(Calendar.YEAR) && !isForceShowYear)
@@ -260,10 +258,10 @@ internal fun Calendar.dayAgo(currentTime: Calendar): Int {
 }
 
 /**
- * Convert calendar to MMMM yyyy date pattern.
+ * use MonthPattern as date time pattern for convert date to string
  *
  * @return date string
  */
-fun Calendar.monthAndYearString(): String {
+fun Calendar.toMonthString(): String {
     return SimpleDateFormat("MMMM yyyy", Locale.getDefault()).format(time)
 }

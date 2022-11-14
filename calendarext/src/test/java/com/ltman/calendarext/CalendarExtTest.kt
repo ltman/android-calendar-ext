@@ -144,8 +144,6 @@ class CalendarExtTest {
             this.set(Calendar.MILLISECOND, 0)
         }
 
-        //
-
         private val date_2019_12_31_23H_59M_00S = Calendar.getInstance().apply {
             this.set(Calendar.YEAR, 2019)
             this.set(Calendar.DAY_OF_MONTH, 31)
@@ -339,44 +337,44 @@ class CalendarExtTest {
         val calendar = Calendar.getInstance()
         `when`(context.getString(R.string.date_format__today)).thenReturn("Test Passed")
         `when`(context.getString(R.string.date_format__tomorrow)).thenReturn("Test Passed")
-        Assert.assertEquals("Test Passed", calendar.todayString(context))
+        Assert.assertEquals("Test Passed", calendar.toTodayString(context))
     }
 
     @Test
     fun `internal todayString`() {
         Assert.assertEquals(
             "29 Dec",
-            date_2019_12_29_23H_59M_59S.todayString(context, date_2019_12_31_23H_59M_59S)
+            date_2019_12_29_23H_59M_59S.toTodayString(context, date_2019_12_31_23H_59M_59S)
         )
         Assert.assertEquals(
             "Yesterday",
-            date_2019_12_30_00H_00M_00S.todayString(context, date_2019_12_31_23H_59M_59S)
+            date_2019_12_30_00H_00M_00S.toTodayString(context, date_2019_12_31_23H_59M_59S)
         )
         Assert.assertEquals(
             "Yesterday",
-            date_2019_12_30_23H_59M_59S.todayString(context, date_2019_12_31_23H_59M_59S)
+            date_2019_12_30_23H_59M_59S.toTodayString(context, date_2019_12_31_23H_59M_59S)
         )
         Assert.assertEquals(
             "Today",
-            date_2019_12_31_00H_00M_00S.todayString(context, date_2019_12_31_23H_59M_59S)
+            date_2019_12_31_00H_00M_00S.toTodayString(context, date_2019_12_31_23H_59M_59S)
         )
 
         Assert.assertEquals(
             "Today",
-            date_2019_12_31_23H_59M_59S.todayString(context, date_2019_12_31_23H_59M_59S)
+            date_2019_12_31_23H_59M_59S.toTodayString(context, date_2019_12_31_23H_59M_59S)
         )
 
         Assert.assertEquals(
             "Tomorrow",
-            date_2020_01_01_00H_00M_00S.todayString(context, date_2019_12_31_23H_59M_59S)
+            date_2020_01_01_00H_00M_00S.toTodayString(context, date_2019_12_31_23H_59M_59S)
         )
         Assert.assertEquals(
             "Tomorrow",
-            date_2020_01_01_23H_59M_59S.todayString(context, date_2019_12_31_23H_59M_59S)
+            date_2020_01_01_23H_59M_59S.toTodayString(context, date_2019_12_31_23H_59M_59S)
         )
         Assert.assertEquals(
             "2 Jan 2020",
-            date_2020_01_02_00H_00M_00S.todayString(context, date_2019_12_31_23H_59M_59S)
+            date_2020_01_02_00H_00M_00S.toTodayString(context, date_2019_12_31_23H_59M_59S)
         )
 
     }
@@ -386,44 +384,44 @@ class CalendarExtTest {
         val calendar = Calendar.getInstance()
         `when`(context.getString(ArgumentMatchers.eq(R.string.date_format__today_with_time), ArgumentMatchers.any())).thenReturn("Test Passed")
         `when`(context.getString(ArgumentMatchers.eq(R.string.date_format__tomorrow_with_time), ArgumentMatchers.any())).thenReturn("Test Passed")
-        Assert.assertEquals("Test Passed", calendar.todayWithTimeString(context))
+        Assert.assertEquals("Test Passed", calendar.toTodayWithTimeString(context))
     }
 
     @Test
     fun `internal todayWithTimeString`() {
         Assert.assertEquals(
             "29 Dec at 23:59",
-            date_2019_12_29_23H_59M_59S.todayWithTimeString(context, date_2019_12_31_23H_59M_59S)
+            date_2019_12_29_23H_59M_59S.toTodayWithTimeString(context, date_2019_12_31_23H_59M_59S)
         )
         Assert.assertEquals(
             "Yesterday at 0:00",
-            date_2019_12_30_00H_00M_00S.todayWithTimeString(context, date_2019_12_31_23H_59M_59S)
+            date_2019_12_30_00H_00M_00S.toTodayWithTimeString(context, date_2019_12_31_23H_59M_59S)
         )
         Assert.assertEquals(
             "Yesterday at 23:59",
-            date_2019_12_30_23H_59M_59S.todayWithTimeString(context, date_2019_12_31_23H_59M_59S)
+            date_2019_12_30_23H_59M_59S.toTodayWithTimeString(context, date_2019_12_31_23H_59M_59S)
         )
         Assert.assertEquals(
             "Today at 0:00",
-            date_2019_12_31_00H_00M_00S.todayWithTimeString(context, date_2019_12_31_23H_59M_59S)
+            date_2019_12_31_00H_00M_00S.toTodayWithTimeString(context, date_2019_12_31_23H_59M_59S)
         )
 
         Assert.assertEquals(
             "Today at 23:59",
-            date_2019_12_31_23H_59M_59S.todayWithTimeString(context, date_2019_12_31_23H_59M_59S)
+            date_2019_12_31_23H_59M_59S.toTodayWithTimeString(context, date_2019_12_31_23H_59M_59S)
         )
 
         Assert.assertEquals(
             "Tomorrow at 0:00",
-            date_2020_01_01_00H_00M_00S.todayWithTimeString(context, date_2019_12_31_23H_59M_59S)
+            date_2020_01_01_00H_00M_00S.toTodayWithTimeString(context, date_2019_12_31_23H_59M_59S)
         )
         Assert.assertEquals(
             "Tomorrow at 23:59",
-            date_2020_01_01_23H_59M_59S.todayWithTimeString(context, date_2019_12_31_23H_59M_59S)
+            date_2020_01_01_23H_59M_59S.toTodayWithTimeString(context, date_2019_12_31_23H_59M_59S)
         )
         Assert.assertEquals(
             "2 Jan 2020 at 0:00",
-            date_2020_01_02_00H_00M_00S.todayWithTimeString(context, date_2019_12_31_23H_59M_59S)
+            date_2020_01_02_00H_00M_00S.toTodayWithTimeString(context, date_2019_12_31_23H_59M_59S)
         )
     }
 
@@ -431,157 +429,157 @@ class CalendarExtTest {
     @Test
     fun timeAgoWithTimeString() {
         val calendar = Calendar.getInstance()
-        Assert.assertEquals("Just now", calendar.timeAgoWithTimeString(context))
+        Assert.assertEquals("Just now", calendar.toTimeAgoString(context))
     }
 
     @Test
     fun `internal timeAgoWithTimeString`() {
         Assert.assertEquals(
             "29 Dec at 23:59",
-            date_2019_12_29_23H_59M_59S.timeAgoWithTimeString(context, date_2019_12_31_23H_59M_59S)
+            date_2019_12_29_23H_59M_59S.toTimeAgoString(context, date_2019_12_31_23H_59M_59S)
         )
         Assert.assertEquals(
             "Yesterday at 0:00",
-            date_2019_12_30_00H_00M_00S.timeAgoWithTimeString(context, date_2019_12_31_23H_59M_59S)
+            date_2019_12_30_00H_00M_00S.toTimeAgoString(context, date_2019_12_31_23H_59M_59S)
         )
         Assert.assertEquals(
             "Yesterday at 23:59",
-            date_2019_12_30_23H_59M_59S.timeAgoWithTimeString(context, date_2019_12_31_23H_59M_59S)
+            date_2019_12_30_23H_59M_59S.toTimeAgoString(context, date_2019_12_31_23H_59M_59S)
         )
         Assert.assertEquals(
             "Today at 12:59",
-            date_2019_12_31_12H_59M_59S.timeAgoWithTimeString(context, date_2019_12_31_23H_59M_59S)
+            date_2019_12_31_12H_59M_59S.toTimeAgoString(context, date_2019_12_31_23H_59M_59S)
         )
         Assert.assertEquals(
             "10 hours ago",
-            date_2019_12_31_13H_59M_59S.timeAgoWithTimeString(context, date_2019_12_31_23H_59M_59S)
+            date_2019_12_31_13H_59M_59S.toTimeAgoString(context, date_2019_12_31_23H_59M_59S)
         )
         Assert.assertEquals(
             "1 hour ago",
-            date_2019_12_31_22H_59M_59S.timeAgoWithTimeString(context, date_2019_12_31_23H_59M_59S)
+            date_2019_12_31_22H_59M_59S.toTimeAgoString(context, date_2019_12_31_23H_59M_59S)
         )
         Assert.assertEquals(
             "59 minutes ago",
-            date_2019_12_31_23H_00M_00S.timeAgoWithTimeString(context, date_2019_12_31_23H_59M_59S)
+            date_2019_12_31_23H_00M_00S.toTimeAgoString(context, date_2019_12_31_23H_59M_59S)
         )
         Assert.assertEquals(
             "1 minute ago",
-            date_2019_12_31_23H_58M_59S.timeAgoWithTimeString(context, date_2019_12_31_23H_59M_59S)
+            date_2019_12_31_23H_58M_59S.toTimeAgoString(context, date_2019_12_31_23H_59M_59S)
         )
         Assert.assertEquals(
             "Just now",
-            date_2019_12_31_23H_59M_00S.timeAgoWithTimeString(context, date_2019_12_31_23H_59M_59S)
-        )
-
-        Assert.assertEquals(
-            "Just now",
-            date_2019_12_31_23H_59M_59S.timeAgoWithTimeString(context, date_2019_12_31_23H_59M_59S)
+            date_2019_12_31_23H_59M_00S.toTimeAgoString(context, date_2019_12_31_23H_59M_59S)
         )
 
         Assert.assertEquals(
             "Just now",
-            date_2020_01_01_00H_00M_00S.timeAgoWithTimeString(context, date_2019_12_31_23H_59M_59S)
+            date_2019_12_31_23H_59M_59S.toTimeAgoString(context, date_2019_12_31_23H_59M_59S)
+        )
+
+        Assert.assertEquals(
+            "Just now",
+            date_2020_01_01_00H_00M_00S.toTimeAgoString(context, date_2019_12_31_23H_59M_59S)
         )
         Assert.assertEquals(
             "Just now",
-            date_2020_01_01_23H_59M_59S.timeAgoWithTimeString(context, date_2019_12_31_23H_59M_59S)
+            date_2020_01_01_23H_59M_59S.toTimeAgoString(context, date_2019_12_31_23H_59M_59S)
         )
         Assert.assertEquals(
             "Just now",
-            date_2020_01_02_00H_00M_00S.timeAgoWithTimeString(context, date_2019_12_31_23H_59M_59S)
+            date_2020_01_02_00H_00M_00S.toTimeAgoString(context, date_2019_12_31_23H_59M_59S)
         )
     }
 
     @Test
     fun timeAgoShortString() {
         val calendar = Calendar.getInstance()
-        Assert.assertEquals("Just now", calendar.timeAgoShortString(context))
+        Assert.assertEquals("Just now", calendar.toTimeAgoShortString(context))
     }
 
     @Test
     fun `internal timeAgoShortString`() {
         Assert.assertEquals(
             "1y",
-            date_2017_12_02_23H_59M_59S.timeAgoShortString(context, date_2019_12_01_23H_59M_59S)
+            date_2017_12_02_23H_59M_59S.toTimeAgoShortString(context, date_2019_12_01_23H_59M_59S)
         )
         Assert.assertEquals(
             "1y",
-            date_2017_12_01_23H_59M_59S.timeAgoShortString(context, date_2019_01_01_23H_59M_59S)
+            date_2017_12_01_23H_59M_59S.toTimeAgoShortString(context, date_2019_01_01_23H_59M_59S)
         )
         Assert.assertEquals(
             "1y",
-            date_2017_12_01_23H_59M_59S.timeAgoShortString(context, date_2019_11_30_23H_59M_59S)
+            date_2017_12_01_23H_59M_59S.toTimeAgoShortString(context, date_2019_11_30_23H_59M_59S)
         )
         Assert.assertEquals(
             "2y",
-            date_2017_12_01_23H_59M_59S.timeAgoShortString(context, date_2019_12_01_23H_59M_59S)
+            date_2017_12_01_23H_59M_59S.toTimeAgoShortString(context, date_2019_12_01_23H_59M_59S)
         )
 
         Assert.assertEquals(
             "1y",
-            date_2018_12_25_23H_59M_59S.timeAgoShortString(context, date_2019_12_31_23H_59M_59S)
+            date_2018_12_25_23H_59M_59S.toTimeAgoShortString(context, date_2019_12_31_23H_59M_59S)
         )
         Assert.assertEquals(
             "52w",
-            date_2019_01_01_00H_00M_00S.timeAgoShortString(context, date_2019_12_31_23H_59M_59S)
+            date_2019_01_01_00H_00M_00S.toTimeAgoShortString(context, date_2019_12_31_23H_59M_59S)
         )
         Assert.assertEquals(
             "1w",
-            date_2019_12_24_23H_59M_59S.timeAgoShortString(context, date_2019_12_31_23H_59M_59S)
+            date_2019_12_24_23H_59M_59S.toTimeAgoShortString(context, date_2019_12_31_23H_59M_59S)
         )
         Assert.assertEquals(
             "6d",
-            date_2019_12_25_00H_00M_00S.timeAgoShortString(context, date_2019_12_31_23H_59M_59S)
+            date_2019_12_25_00H_00M_00S.toTimeAgoShortString(context, date_2019_12_31_23H_59M_59S)
         )
         Assert.assertEquals(
             "2d",
-            date_2019_12_29_23H_59M_59S.timeAgoShortString(context, date_2019_12_31_23H_59M_59S)
+            date_2019_12_29_23H_59M_59S.toTimeAgoShortString(context, date_2019_12_31_23H_59M_59S)
         )
         Assert.assertEquals(
             "1d",
-            date_2019_12_30_00H_00M_00S.timeAgoShortString(context, date_2019_12_31_23H_59M_59S)
+            date_2019_12_30_00H_00M_00S.toTimeAgoShortString(context, date_2019_12_31_23H_59M_59S)
         )
         Assert.assertEquals(
             "1d",
-            date_2019_12_30_23H_59M_59S.timeAgoShortString(context, date_2019_12_31_23H_59M_59S)
+            date_2019_12_30_23H_59M_59S.toTimeAgoShortString(context, date_2019_12_31_23H_59M_59S)
         )
         Assert.assertEquals(
             "23h",
-            date_2019_12_31_00H_00M_00S.timeAgoShortString(context, date_2019_12_31_23H_59M_59S)
+            date_2019_12_31_00H_00M_00S.toTimeAgoShortString(context, date_2019_12_31_23H_59M_59S)
         )
         Assert.assertEquals(
             "1h",
-            date_2019_12_31_22H_59M_59S.timeAgoShortString(context, date_2019_12_31_23H_59M_59S)
+            date_2019_12_31_22H_59M_59S.toTimeAgoShortString(context, date_2019_12_31_23H_59M_59S)
         )
         Assert.assertEquals(
             "59m",
-            date_2019_12_31_23H_00M_00S.timeAgoShortString(context, date_2019_12_31_23H_59M_59S)
+            date_2019_12_31_23H_00M_00S.toTimeAgoShortString(context, date_2019_12_31_23H_59M_59S)
         )
         Assert.assertEquals(
             "1m",
-            date_2019_12_31_23H_58M_59S.timeAgoShortString(context, date_2019_12_31_23H_59M_59S)
+            date_2019_12_31_23H_58M_59S.toTimeAgoShortString(context, date_2019_12_31_23H_59M_59S)
         )
         Assert.assertEquals(
             "Just now",
-            date_2019_12_31_23H_59M_00S.timeAgoShortString(context, date_2019_12_31_23H_59M_59S)
-        )
-
-        Assert.assertEquals(
-            "Just now",
-            date_2019_12_31_23H_59M_59S.timeAgoShortString(context, date_2019_12_31_23H_59M_59S)
+            date_2019_12_31_23H_59M_00S.toTimeAgoShortString(context, date_2019_12_31_23H_59M_59S)
         )
 
         Assert.assertEquals(
             "Just now",
-            date_2020_01_01_00H_00M_00S.timeAgoShortString(context, date_2019_12_31_23H_59M_59S)
+            date_2019_12_31_23H_59M_59S.toTimeAgoShortString(context, date_2019_12_31_23H_59M_59S)
+        )
+
+        Assert.assertEquals(
+            "Just now",
+            date_2020_01_01_00H_00M_00S.toTimeAgoShortString(context, date_2019_12_31_23H_59M_59S)
         )
         Assert.assertEquals(
             "Just now",
-            date_2020_01_01_23H_59M_59S.timeAgoShortString(context, date_2019_12_31_23H_59M_59S)
+            date_2020_01_01_23H_59M_59S.toTimeAgoShortString(context, date_2019_12_31_23H_59M_59S)
         )
         Assert.assertEquals(
             "Just now",
-            date_2020_01_02_00H_00M_00S.timeAgoShortString(context, date_2019_12_31_23H_59M_59S)
+            date_2020_01_02_00H_00M_00S.toTimeAgoShortString(context, date_2019_12_31_23H_59M_59S)
         )
     }
 
@@ -595,14 +593,14 @@ class CalendarExtTest {
             this.set(Calendar.MINUTE, 50)
         }
 
-        Assert.assertEquals("31 Dec 2100", notThisYearDate.dateString(context))
+        Assert.assertEquals("31 Dec 2100", notThisYearDate.toDateString(context))
     }
 
     @Test
     fun dateWithTimeString() {
         val calendar = Calendar.getInstance()
         `when`(context.getString(ArgumentMatchers.eq(R.string.date_format__past), ArgumentMatchers.any(), ArgumentMatchers.any())).thenReturn("Test Passed")
-        Assert.assertEquals("Test Passed", calendar.dateWithTimeString(context))
+        Assert.assertEquals("Test Passed", calendar.toDateWithTimeString(context))
     }
 
     @Test
@@ -615,7 +613,7 @@ class CalendarExtTest {
             this.set(Calendar.MINUTE, 50)
         }
 
-        Assert.assertEquals("31 Dec 2100 at 8:50", notThisYearDate.dateWithTimeString(context))
+        Assert.assertEquals("31 Dec 2100 at 8:50", notThisYearDate.toDateWithTimeString(context))
     }
 
     @Test
@@ -628,7 +626,7 @@ class CalendarExtTest {
             this.set(Calendar.MINUTE, 50)
         }
 
-        Assert.assertEquals("December 2100", date.monthAndYearString())
+        Assert.assertEquals("December 2100", date.toMonthString())
     }
 
 }
