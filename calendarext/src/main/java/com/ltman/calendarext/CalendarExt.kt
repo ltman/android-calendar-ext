@@ -46,7 +46,11 @@ object CalendarExt {
 }
 
 /**
- * use TodayPattern as date time pattern for convert date to string
+ * Convert Calendar to String
+ *
+ * Example
+ *
+ * Today | Yesterday | Tomorrow	| d MMM
  *
  * @return date string
 */
@@ -72,7 +76,11 @@ internal fun Calendar.toTodayString(context: Context, currentTime: Calendar): St
 }
 
 /**
- * use TodayWithTimePattern as date time pattern for convert date to string
+ * Convert Calendar to String
+ *
+ * Example
+ *
+ * Today at H:mm | Yesterday at H:mm | Tomorrow at H:mm	d | MMM at H:mm
  *
  * @return date string
  */
@@ -100,7 +108,11 @@ internal fun Calendar.toTodayWithTimeString(context: Context, currentTime: Calen
 }
 
 /**
- * use TimeAgoPattern as date time pattern for convert date to string
+ * Convert Calendar to String
+ *
+ * Example
+ *
+ * Just now | X minutes ago | X hours ago | Today at H:mm | Yesterday at H:mm | d MMM at H:mm
  *
  * @return date string
  */
@@ -148,7 +160,11 @@ internal fun Calendar.toTimeAgoString(context: Context, currentTime: Calendar): 
 
 
 /**
- * use TimeAgoShortPattern as date time pattern for convert date to string
+ * Convert Calendar to String
+ *
+ * Example
+ *
+ * Just now | X m(minute) or h(hour) or d(day) or w(week) or y(year)
  *
  * @return date string
  */
@@ -194,7 +210,11 @@ internal fun Calendar.toTimeAgoShortString(context: Context, currentTime: Calend
 }
 
 /**
- * use DatePattern as date time pattern for convert date to string
+ * Convert Calendar to String
+ *
+ * Example
+ *
+ * d MMM yyyy
  *
  * @return date string
  */
@@ -207,7 +227,11 @@ fun Calendar.toDateString(context: Context): String {
 }
 
 /**
- * use DateWithTimePattern as date time pattern for convert date to string
+ * Convert Calendar to String
+ *
+ * Example
+ *
+ * d MMM at H:mm | d MMM yyyy at H:mm
  *
  * @param alwaysDisplayYear to force show year in date time pattern
  * @return date and time string
@@ -258,7 +282,11 @@ internal fun Calendar.dayAgo(currentTime: Calendar): Int {
 }
 
 /**
- * use MonthPattern as date time pattern for convert date to string
+ * Convert Calendar to String
+ *
+ * Example
+ *
+ * MMMM yyyy
  *
  * @return date string
  */
