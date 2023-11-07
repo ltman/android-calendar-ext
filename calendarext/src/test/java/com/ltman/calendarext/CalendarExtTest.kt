@@ -262,15 +262,11 @@ class CalendarExtTest {
             val date_format__one_hour = 11
             val date_format__hour = 12
         }
-        object array {
-            val months_short_array = 0
-        }
     }
 
     @Before
     fun prepare() {
         CalendarExt.configure(CalendarExtConfig(
-            months_short_array = R.array.months_short_array,
             date_format__today = R.string.date_format__today,
             date_format__tomorrow = R.string.date_format__tomorrow,
             date_format__yesterday = R.string.date_format__yesterday,
@@ -309,7 +305,6 @@ class CalendarExtTest {
         `when`(context.getString(R.string.date_format__past, "31 Dec 2100", "8:50")).thenReturn("31 Dec 2100 at 8:50")
 
         `when`(context.resources).thenReturn(resources)
-        `when`(context.resources.getStringArray(R.array.months_short_array)).thenReturn(arrayOf("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"))
     }
 
     @Test
@@ -593,7 +588,21 @@ class CalendarExtTest {
             this.set(Calendar.MINUTE, 50)
         }
 
-        Assert.assertEquals("31 Dec 2100", notThisYearDate.toDateString(context))
+        Assert.assertEquals("31 Dec 2100", notThisYearDate.toDateString())
+    }
+
+    @Test
+    fun dateStringWithOffset() {
+        val notThisYearDate = Calendar.getInstance().apply {
+            this.set(Calendar.DAY_OF_MONTH, 31)
+            this.set(Calendar.MONTH, 11)
+            this.set(Calendar.YEAR, 2100)
+            this.set(Calendar.HOUR_OF_DAY, 19)
+            this.set(Calendar.MINUTE, 50)
+            timeZone = TimeZone.getTimeZone("UTC")
+        }
+
+        Assert.assertEquals("1 Jan 2101", notThisYearDate.toDateString( timeZone = TimeZone.getTimeZone("GMT+7")))
     }
 
     @Test
