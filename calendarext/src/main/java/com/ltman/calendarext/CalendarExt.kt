@@ -1,11 +1,11 @@
 package com.ltman.calendarext
 
 import android.content.Context
-import androidx.annotation.ArrayRes
 import androidx.annotation.StringRes
 import java.text.SimpleDateFormat
-import java.time.ZoneId
-import java.util.*
+import java.util.Calendar
+import java.util.Locale
+import java.util.TimeZone
 
 data class CalendarExtConfig(
     @StringRes
@@ -59,7 +59,7 @@ fun Calendar.toTodayString(context: Context): String {
 
 internal fun Calendar.toTodayString(
     context: Context, currentTime: Calendar,
-    tzOffset: String? = null,
+    timeZone: TimeZone? = null,
     locale: Locale = Locale.getDefault()
 ): String {
     return when (this.dayAgo(currentTime)) {
@@ -74,8 +74,8 @@ internal fun Calendar.toTodayString(
 
             val dateFormat = SimpleDateFormat(pattern, locale)
 
-            tzOffset?.let {
-                dateFormat.timeZone = TimeZone.getTimeZone(ZoneId.of(tzOffset))
+            timeZone?.let {
+                dateFormat.timeZone = timeZone
             }
 
             dateFormat.format(this.time)
@@ -98,13 +98,13 @@ fun Calendar.toTodayWithTimeString(context: Context): String {
 
 internal fun Calendar.toTodayWithTimeString(
     context: Context, currentTime: Calendar,
-    tzOffset: String? = null,
+    timeZone: TimeZone? = null,
     locale: Locale = Locale.getDefault()
 ): String {
     val timeFormat = SimpleDateFormat("H:mm", locale)
 
-    tzOffset?.let {
-        timeFormat.timeZone = TimeZone.getTimeZone(ZoneId.of(tzOffset))
+    timeZone?.let {
+        timeFormat.timeZone = timeZone
     }
 
     val timeStr = timeFormat.format(time)
@@ -120,8 +120,8 @@ internal fun Calendar.toTodayWithTimeString(
 
             val dateFormat = SimpleDateFormat(pattern, locale)
 
-            tzOffset?.let {
-                dateFormat.timeZone = TimeZone.getTimeZone(ZoneId.of(tzOffset))
+            timeZone?.let {
+                dateFormat.timeZone = timeZone
             }
 
             val convertedDate = dateFormat.format(this.time)
@@ -247,15 +247,15 @@ internal fun Calendar.toTimeAgoShortString(context: Context, currentTime: Calend
  * @return date string
  */
 fun Calendar.toDateString(
-    tzOffset: String? = null,
+    timeZone: TimeZone? = null,
     locale: Locale = Locale.getDefault()
 ): String {
     val pattern = "d MMM yyyy"
 
     val dateFormat = SimpleDateFormat(pattern, locale)
 
-    tzOffset?.let {
-        dateFormat.timeZone = TimeZone.getTimeZone(ZoneId.of(tzOffset))
+    timeZone?.let {
+        dateFormat.timeZone = timeZone
     }
     return dateFormat.format(this.time)
 }
@@ -273,14 +273,14 @@ fun Calendar.toDateString(
 fun Calendar.toDateWithTimeString(
     context: Context,
     alwaysDisplayYear: Boolean = false,
-    tzOffset: String? = null,
+    timeZone: TimeZone? = null,
     locale: Locale = Locale.getDefault()
 ): String {
     return this.toDateWithTimeString(
         context,
         alwaysDisplayYear,
         CalendarExt.currentTime(),
-        tzOffset,
+        timeZone,
         locale
     )
 }
@@ -289,7 +289,7 @@ internal fun Calendar.toDateWithTimeString(
     context: Context,
     isForceShowYear: Boolean,
     currentTime: Calendar,
-    tzOffset: String? = null,
+    timeZone: TimeZone? = null,
     locale: Locale = Locale.getDefault()
 ): String {
     val timeStr = SimpleDateFormat("H:mm", locale).format(time)
@@ -300,8 +300,8 @@ internal fun Calendar.toDateWithTimeString(
 
     val dateFormat = SimpleDateFormat(pattern, locale)
 
-    tzOffset?.let {
-        dateFormat.timeZone = TimeZone.getTimeZone(ZoneId.of(tzOffset))
+    timeZone?.let {
+        dateFormat.timeZone = timeZone
     }
 
     val convertedDate = dateFormat.format(this.time)
@@ -347,13 +347,13 @@ internal fun Calendar.dayAgo(currentTime: Calendar): Int {
  * @return date string
  */
 fun Calendar.toMonthString(
-    tzOffset: String? = null,
+    timeZone: TimeZone? = null,
     locale: Locale = Locale.getDefault()
 ): String {
     val dateFormat = SimpleDateFormat("MMMM yyyy", locale)
 
-    tzOffset?.let {
-        dateFormat.timeZone = TimeZone.getTimeZone(ZoneId.of(tzOffset))
+    timeZone?.let {
+        dateFormat.timeZone = timeZone
     }
 
     return dateFormat.format(time)

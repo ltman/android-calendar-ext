@@ -602,7 +602,7 @@ class CalendarExtTest {
             timeZone = TimeZone.getTimeZone("UTC")
         }
 
-        Assert.assertEquals("1 Jan 2101", notThisYearDate.toDateString( "+0500"))
+        Assert.assertEquals("1 Jan 2101", notThisYearDate.toDateString( timeZone = TimeZone.getTimeZone("GMT+7")))
     }
 
     @Test
