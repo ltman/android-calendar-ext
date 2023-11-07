@@ -1,14 +1,13 @@
 package com.ltman.calendarext
 
 import android.content.Context
-import androidx.annotation.ArrayRes
 import androidx.annotation.StringRes
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Calendar
+import java.util.Locale
+import java.util.TimeZone
 
 data class CalendarExtConfig(
-    @ArrayRes
-    val months_short_array: Int,
     @StringRes
     val date_format__today: Int,
     @StringRes
@@ -53,24 +52,33 @@ object CalendarExt {
  * Today | Yesterday | Tomorrow	| d MMM
  *
  * @return date string
-*/
+ */
 fun Calendar.toTodayString(context: Context): String {
     return this.toTodayString(context, CalendarExt.currentTime())
 }
 
-internal fun Calendar.toTodayString(context: Context, currentTime: Calendar): String {
-    val monthsShort = context.resources.getStringArray(CalendarExt.config.months_short_array)
+internal fun Calendar.toTodayString(
+    context: Context, currentTime: Calendar,
+    timeZone: TimeZone? = null,
+    locale: Locale = Locale.getDefault()
+): String {
     return when (this.dayAgo(currentTime)) {
         0 -> context.getString(CalendarExt.config.date_format__today)
         1 -> context.getString(CalendarExt.config.date_format__yesterday)
         -1 -> context.getString(CalendarExt.config.date_format__tomorrow)
         else -> {
-            val pattern = if (currentTime.get(Calendar.YEAR) == this.get(Calendar.YEAR))
-                "d ___"
-            else "d ___ yyyy"
 
-            val convertedDate = SimpleDateFormat(pattern, Locale.getDefault()).format(this.time)
-            convertedDate.replace("___", monthsShort[this.get(Calendar.MONTH)])
+            val pattern = if (currentTime.get(Calendar.YEAR) == this.get(Calendar.YEAR))
+                "d MMM"
+            else "d MMM yyyy"
+
+            val dateFormat = SimpleDateFormat(pattern, locale)
+
+            timeZone?.let {
+                dateFormat.timeZone = timeZone
+            }
+
+            dateFormat.format(this.time)
         }
     }
 }
@@ -88,21 +96,37 @@ fun Calendar.toTodayWithTimeString(context: Context): String {
     return this.toTodayWithTimeString(context, CalendarExt.currentTime())
 }
 
-internal fun Calendar.toTodayWithTimeString(context: Context, currentTime: Calendar): String {
-    val monthsShort = context.resources.getStringArray(CalendarExt.config.months_short_array)
-    val timeStr = SimpleDateFormat("H:mm", Locale.getDefault()).format(time)
+internal fun Calendar.toTodayWithTimeString(
+    context: Context, currentTime: Calendar,
+    timeZone: TimeZone? = null,
+    locale: Locale = Locale.getDefault()
+): String {
+    val timeFormat = SimpleDateFormat("H:mm", locale)
+
+    timeZone?.let {
+        timeFormat.timeZone = timeZone
+    }
+
+    val timeStr = timeFormat.format(time)
+
     return when (this.dayAgo(currentTime)) {
         0 -> context.getString(CalendarExt.config.date_format__today_with_time, timeStr)
         1 -> context.getString(CalendarExt.config.date_format__yesterday_with_time, timeStr)
         -1 -> context.getString(CalendarExt.config.date_format__tomorrow_with_time, timeStr)
         else -> {
             val pattern = if (currentTime.get(Calendar.YEAR) == this.get(Calendar.YEAR))
-                "d ___"
-            else "d ___ yyyy"
+                "d MMM"
+            else "d MMM yyyy"
 
-            val convertedDate = SimpleDateFormat(pattern, Locale.getDefault()).format(this.time)
-            val date = convertedDate.replace("___", monthsShort[this.get(Calendar.MONTH)])
-            context.getString(CalendarExt.config.date_format__past, date, timeStr)
+            val dateFormat = SimpleDateFormat(pattern, locale)
+
+            timeZone?.let {
+                dateFormat.timeZone = timeZone
+            }
+
+            val convertedDate = dateFormat.format(this.time)
+
+            context.getString(CalendarExt.config.date_format__past, convertedDate, timeStr)
         }
     }
 }
@@ -199,7 +223,11 @@ internal fun Calendar.toTimeAgoShortString(context: Context, currentTime: Calend
                 time = currentTime.time
             }
             postDateThisYear.timeInMillis = timeInMillis
-            postDateThisYear.set(currentTime.get(Calendar.YEAR), get(Calendar.MONTH), get(Calendar.DATE))
+            postDateThisYear.set(
+                currentTime.get(Calendar.YEAR),
+                get(Calendar.MONTH),
+                get(Calendar.DATE)
+            )
 
             return if (currentTime >= postDateThisYear)
                 "${year}y"
@@ -218,12 +246,18 @@ internal fun Calendar.toTimeAgoShortString(context: Context, currentTime: Calend
  *
  * @return date string
  */
-fun Calendar.toDateString(context: Context): String {
-    val monthsShort = context.resources.getStringArray(CalendarExt.config.months_short_array)
-    val pattern = "d ___ yyyy"
+fun Calendar.toDateString(
+    timeZone: TimeZone? = null,
+    locale: Locale = Locale.getDefault()
+): String {
+    val pattern = "d MMM yyyy"
 
-    val convertedDate = SimpleDateFormat(pattern, Locale.getDefault()).format(this.time)
-    return convertedDate.replace("___", monthsShort[this.get(Calendar.MONTH)])
+    val dateFormat = SimpleDateFormat(pattern, locale)
+
+    timeZone?.let {
+        dateFormat.timeZone = timeZone
+    }
+    return dateFormat.format(this.time)
 }
 
 /**
@@ -236,21 +270,43 @@ fun Calendar.toDateString(context: Context): String {
  * @param alwaysDisplayYear to force show year in date time pattern
  * @return date and time string
  */
-fun Calendar.toDateWithTimeString(context: Context, alwaysDisplayYear: Boolean = false): String {
-    return this.toDateWithTimeString(context, alwaysDisplayYear, CalendarExt.currentTime())
+fun Calendar.toDateWithTimeString(
+    context: Context,
+    alwaysDisplayYear: Boolean = false,
+    timeZone: TimeZone? = null,
+    locale: Locale = Locale.getDefault()
+): String {
+    return this.toDateWithTimeString(
+        context,
+        alwaysDisplayYear,
+        CalendarExt.currentTime(),
+        timeZone,
+        locale
+    )
 }
 
-internal fun Calendar.toDateWithTimeString(context: Context, isForceShowYear: Boolean, currentTime: Calendar): String {
-    val monthsShort = context.resources.getStringArray(CalendarExt.config.months_short_array)
-    val timeStr = SimpleDateFormat("H:mm", Locale.getDefault()).format(time)
+internal fun Calendar.toDateWithTimeString(
+    context: Context,
+    isForceShowYear: Boolean,
+    currentTime: Calendar,
+    timeZone: TimeZone? = null,
+    locale: Locale = Locale.getDefault()
+): String {
+    val timeStr = SimpleDateFormat("H:mm", locale).format(time)
     val pattern = if (currentTime.get(Calendar.YEAR) == this.get(Calendar.YEAR) && !isForceShowYear)
-        "d ___"
-    else "d ___ yyyy"
+        "d MMM"
+    else "d MMM yyyy"
 
-    val convertedDate = SimpleDateFormat(pattern, Locale.getDefault()).format(this.time)
-    val date = convertedDate.replace("___", monthsShort[this.get(Calendar.MONTH)])
 
-    return context.getString(CalendarExt.config.date_format__past, date, timeStr)
+    val dateFormat = SimpleDateFormat(pattern, locale)
+
+    timeZone?.let {
+        dateFormat.timeZone = timeZone
+    }
+
+    val convertedDate = dateFormat.format(this.time)
+
+    return context.getString(CalendarExt.config.date_format__past, convertedDate, timeStr)
 }
 
 /**
@@ -290,6 +346,15 @@ internal fun Calendar.dayAgo(currentTime: Calendar): Int {
  *
  * @return date string
  */
-fun Calendar.toMonthString(): String {
-    return SimpleDateFormat("MMMM yyyy", Locale.getDefault()).format(time)
+fun Calendar.toMonthString(
+    timeZone: TimeZone? = null,
+    locale: Locale = Locale.getDefault()
+): String {
+    val dateFormat = SimpleDateFormat("MMMM yyyy", locale)
+
+    timeZone?.let {
+        dateFormat.timeZone = timeZone
+    }
+
+    return dateFormat.format(time)
 }
