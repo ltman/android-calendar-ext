@@ -62,7 +62,8 @@ fun Calendar.toTodayString(
 }
 
 internal fun Calendar.toTodayString(
-    context: Context, currentTime: Calendar,
+    context: Context,
+    currentTime: Calendar,
     timeZone: TimeZone?,
     locale: Locale
 ): String {
@@ -98,7 +99,7 @@ internal fun Calendar.toTodayString(
  */
 fun Calendar.toTodayWithTimeString(
     context: Context,
-    timeZone: TimeZone?,
+    timeZone: TimeZone? = null,
     locale: Locale = Locale.getDefault()
 ): String {
     return this.toTodayWithTimeString(context, CalendarExt.currentTime(), timeZone, locale)
