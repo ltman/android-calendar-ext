@@ -53,14 +53,19 @@ object CalendarExt {
  *
  * @return date string
  */
-fun Calendar.toTodayString(context: Context): String {
-    return this.toTodayString(context, CalendarExt.currentTime())
+fun Calendar.toTodayString(
+    context: Context,
+    timeZone: TimeZone? = null,
+    locale: Locale = Locale.getDefault()
+): String {
+    return this.toTodayString(context, CalendarExt.currentTime(), timeZone, locale)
 }
 
 internal fun Calendar.toTodayString(
-    context: Context, currentTime: Calendar,
-    timeZone: TimeZone? = null,
-    locale: Locale = Locale.getDefault()
+    context: Context,
+    currentTime: Calendar,
+    timeZone: TimeZone?,
+    locale: Locale
 ): String {
     return when (this.dayAgo(currentTime)) {
         0 -> context.getString(CalendarExt.config.date_format__today)
@@ -92,14 +97,19 @@ internal fun Calendar.toTodayString(
  *
  * @return date string
  */
-fun Calendar.toTodayWithTimeString(context: Context): String {
-    return this.toTodayWithTimeString(context, CalendarExt.currentTime())
+fun Calendar.toTodayWithTimeString(
+    context: Context,
+    timeZone: TimeZone? = null,
+    locale: Locale = Locale.getDefault()
+): String {
+    return this.toTodayWithTimeString(context, CalendarExt.currentTime(), timeZone, locale)
 }
 
 internal fun Calendar.toTodayWithTimeString(
-    context: Context, currentTime: Calendar,
-    timeZone: TimeZone? = null,
-    locale: Locale = Locale.getDefault()
+    context: Context,
+    currentTime: Calendar,
+    timeZone: TimeZone?,
+    locale: Locale
 ): String {
     val timeFormat = SimpleDateFormat("H:mm", locale)
 
@@ -140,11 +150,20 @@ internal fun Calendar.toTodayWithTimeString(
  *
  * @return date string
  */
-fun Calendar.toTimeAgoString(context: Context): String {
-    return this.toTimeAgoString(context, CalendarExt.currentTime())
+fun Calendar.toTimeAgoString(
+    context: Context,
+    timeZone: TimeZone? = null,
+    locale: Locale = Locale.getDefault()
+): String {
+    return this.toTimeAgoString(context, CalendarExt.currentTime(), timeZone, locale)
 }
 
-internal fun Calendar.toTimeAgoString(context: Context, currentTime: Calendar): String {
+internal fun Calendar.toTimeAgoString(
+    context: Context,
+    currentTime: Calendar,
+    timeZone: TimeZone?,
+    locale: Locale = Locale.getDefault()
+): String {
     val interval = (currentTime.timeInMillis - this.timeInMillis) / 1000
 
     val minute = 60
@@ -177,7 +196,7 @@ internal fun Calendar.toTimeAgoString(context: Context, currentTime: Calendar): 
         }
 
         else -> {
-            this.toTodayWithTimeString(context, currentTime)
+            this.toTodayWithTimeString(context, currentTime, timeZone, locale)
         }
     }
 }
@@ -290,13 +309,19 @@ internal fun Calendar.toDateWithTimeString(
     isForceShowYear: Boolean,
     currentTime: Calendar,
     timeZone: TimeZone? = null,
-    locale: Locale = Locale.getDefault()
+    locale: Locale
 ): String {
-    val timeStr = SimpleDateFormat("H:mm", locale).format(time)
+    val timeFormat = SimpleDateFormat("H:mm", locale)
+
+    timeZone?.let {
+        timeFormat.timeZone = timeZone
+    }
+
+    val timeStr = timeFormat.format(time)
+
     val pattern = if (currentTime.get(Calendar.YEAR) == this.get(Calendar.YEAR) && !isForceShowYear)
         "d MMM"
     else "d MMM yyyy"
-
 
     val dateFormat = SimpleDateFormat(pattern, locale)
 

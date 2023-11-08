@@ -11,8 +11,8 @@ android {
         compileSdk 33
         buildToolsVersion = "33.0.1"
 
-        versionCode 20
-        versionName "3.0.3"
+        versionCode 21
+        versionName "3.0.4"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
