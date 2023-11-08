@@ -12,7 +12,7 @@ android {
         buildToolsVersion = "33.0.1"
 
         versionCode 19
-        versionName "3.0.0"
+        versionName "3.0.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -52,17 +52,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 }
 
-
-//task androidJavadocsJar(type: Jar) {
-//    archiveClassifier.set("javadoc")
-//    from androidJavadocs.destinationDir
-//}
-
-task androidSourcesJar(type: Jar) {
-    archiveClassifier.set("sources")
-    from android.sourceSets.main.java.srcDirs
-}
-
 publishing {
     def githubProperties = new Properties()
     def githubPropertiesFile = "github.properties"
@@ -84,8 +73,8 @@ publishing {
                  ** gpr.usr=GITHUB_USER_ID & gpr.key=PERSONAL_ACCESS_TOKEN
                  ** Set env variable GPR_USER & GPR_API_KEY if not adding a properties file**/
 
-                username = githubProperties['gpr.usr'] ?: System.getenv("GPR_USER")
-                password = githubProperties['gpr.key'] ?: System.getenv("GPR_API_KEY")
+                username = "4977805"
+                password = "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"
             }
         }
     }
@@ -95,38 +84,9 @@ publishing {
             artifactId = "calendar-ext"
             version = "${android.defaultConfig.versionName}"
 
-            artifact file("$buildDir/outputs/aar/calendarext-release.aar")
-            artifact androidSourcesJar
-
-            pom.withXml {
-                // for dependencies and exclusions
-                def dependenciesNode = asNode().appendNode('dependencies')
-                def configurationNames = ["implementation", "api", "runtimeOnly"]
-                configurationNames.each { confName ->
-                    configurations[confName].allDependencies.each {
-                        def dependencyNode = dependenciesNode.appendNode('dependency')
-                        dependencyNode.appendNode('groupId', it.group)
-                        dependencyNode.appendNode('artifactId', it.name)
-                        dependencyNode.appendNode('version', it.version)
-                        if (it.excludeRules.size() > 0) {
-                            def exclusionsNode = dependencyNode.appendNode('exclusions')
-                            it.excludeRules.each { rule ->
-                                def exclusionNode = exclusionsNode.appendNode('exclusion')
-                                exclusionNode.appendNode('groupId', rule.group)
-                                exclusionNode.appendNode('artifactId', rule.module)
-                            }
-                        }
-                    }
-                }
-            }
-
             afterEvaluate {
                 from components.release
             }
         }
     }
 }
-publish.dependsOn(assemble)
-
-
-
