@@ -5,12 +5,12 @@ plugins {
 }
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 33
 
     defaultConfig {
         applicationId "com.ltman.calendarext"
-        minSdkVersion 16
-        targetSdkVersion 30
+        minSdkVersion 23
+        targetSdkVersion 33
         versionCode 1
         versionName "1.0"
 
@@ -39,8 +39,7 @@ android {
 }
 
 dependencies {
-    //implementation project(path: ':calendarext')
-    implementation 'com.ltman:calendar-ext:1.0.5'
+    implementation project(path: ':calendarext')
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.6.0'
